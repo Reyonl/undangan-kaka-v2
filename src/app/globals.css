@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #2D070B;
+  --foreground: #FDFBF7;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: #2D070B;
+  color: #FDFBF7;
+}
+
+/* Custom Selection */
+::selection {
+  background-color: #D4AF37;
+  color: #2D070B;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #200407;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C5A880;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E8CE75;
+}
+
+/* Minang Glassmorphism Utilities */
+.glass-panel-maroon {
+  background: linear-gradient(135deg, rgba(62, 11, 16, 0.90) 0%, rgba(45, 7, 11, 0.96) 100%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  box-shadow:
+    0 20px 50px -15px rgba(0, 0, 0, 0.65),
+    0 4px 16px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(232, 206, 117, 0.18),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.glass-panel-maroon-card {
+  background: linear-gradient(135deg, rgba(74, 14, 19, 0.78) 0%, rgba(54, 8, 12, 0.88) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.glass-panel-maroon-input {
+  background: rgba(30, 4, 7, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #FDFBF7;
+}
+
+/* Minang Gold Gradient Utilities */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF0B8 0%, #E8CE75 40%, #D4AF37 70%, #A88850 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #E8CE75 0%, #D4AF37 50%, #B89035 100%);
+}
+
+.bg-maroon-gradient {
+  background: linear-gradient(135deg, #4A0E13 0%, #2D070B 50%, #1F0406 100%);
+}
+
+.border-gold-subtle {
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* Subtle Minang Songket Background Pattern on Deep Maroon */
+.bg-songket-dark {
+  background-color: #2D070B;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Premium Animation Keyframes ─────────────────────── */
+
+/* Gold shimmer sweep for CTA buttons */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(250%)  skewX(-12deg); }
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 3.2s ease-in-out infinite;
+  animation-delay: 1.5s;
+  pointer-events: none;
+}
+
+/* Ken Burns slow drift for opening background */
+@keyframes ken-burns {
+  0%   { transform: scale(1.08) translate(0px, 0px); }
+  33%  { transform: scale(1.12) translate(-8px, -4px); }
+  66%  { transform: scale(1.10) translate(6px, -6px); }
+  100% { transform: scale(1.08) translate(0px, 0px); }
+}
+
+.ken-burns {
+  animation: ken-burns 28s ease-in-out infinite;
+}
+
+/* Gentle float for decorative elements */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  30%       { transform: translateY(-6px) rotate(0.5deg); }
+  70%       { transform: translateY(-3px) rotate(-0.5deg); }
+}
+
+.float-gentle {
+  animation: float-gentle 7s ease-in-out infinite;
+}
+
+/* Pulse glow ring for timeline dots */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.45); }
+  70%  { box-shadow: 0 0 0 8px rgba(212, 175, 55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.5s ease-out infinite;
+}
+
+/* ── Accessibility: Respect prefers-reduced-motion ───── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ken-burns,
+  .float-gentle,
+  .btn-shimmer::after,
+  .pulse-ring {
+    animation: none !important;
+  }
+}
