@@ -18,7 +18,7 @@ export function ClosingSection() {
   const parallaxYBali = useTransform(scrollYProgress, [0, 1], [0, -15]);
 
   return (
-    <footer className="py-20 sm:py-28 bg-minang-maroon-deep text-minang-cream relative overflow-hidden text-center">
+    <footer id="closing" className="py-20 sm:py-28 bg-minang-maroon-deep text-minang-cream relative overflow-hidden text-center">
       {/* Subtle radial glow — Minang gold */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-minang-gold/10 rounded-full blur-3xl pointer-events-none" />
 
