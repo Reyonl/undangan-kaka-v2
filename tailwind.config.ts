@@ -17,7 +17,7 @@ const config: Config = {
             light: "#8C242C",
             DEFAULT: "#6B171D",
             dark: "#4E0E13",
-            deep: "#36080C",
+            deep: "#2D070B",
           },
           gold: {
             light: "#E8CE75",
@@ -35,6 +35,22 @@ const config: Config = {
             soft: "#302626",
             muted: "#5C4F4F",
           },
+        },
+        // Bali Artistic Cultural Palette
+        bali: {
+          terracotta: {
+            light: "#FFA68C",
+            DEFAULT: "#E07A5F",
+            dark: "#B55A2B",
+            deep: "#8A3B1A",
+          },
+          gold: {
+            light: "#FFE39E",
+            DEFAULT: "#D4AF37",
+            dark: "#C5A880",
+          },
+          coral: "#FF6F61",
+          jade: "#2D5A4E",
         },
         wedding: {
           ivory: "#FDFBF7",

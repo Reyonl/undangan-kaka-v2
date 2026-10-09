@@ -1,1 +1,11 @@
+# Dependencies
 node_modules
+
+# Build outputs
+.next
+out
+out.zip
+
+# Generated files
+*.zip
+tsconfig.tsbuildinfo
