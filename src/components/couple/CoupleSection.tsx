@@ -1,12 +1,23 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MinangCorner, BaliCorner, SuntiangIcon, KambojaFlower } from "@/components/ui/MinangOrnaments";
+
+function ProfileImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="eager"
+      decoding="async"
+    />
+  );
+}
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -72,11 +83,10 @@ export function CoupleSection() {
               transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-48 h-64 sm:w-56 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-xl border-2 border-minang-gold/50 bg-minang-maroon-deep"
             >
-              <Image
+              <ProfileImage
                 src={bride.photo}
                 alt={bride.fullName}
-                fill
-                className="object-cover object-center filter saturate-[0.93] contrast-[1.05] group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="object-cover object-center filter saturate-[0.93] contrast-[1.05] group-hover:scale-105 transition-transform duration-700 ease-out w-full h-full"
               />
             </motion.div>
 
@@ -146,11 +156,10 @@ export function CoupleSection() {
               transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-48 h-64 sm:w-56 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-xl border-2 border-bali-terracotta/50 bg-minang-maroon-deep"
             >
-              <Image
+              <ProfileImage
                 src={groom.photo}
                 alt={groom.fullName}
-                fill
-                className="object-cover object-center filter saturate-[0.93] contrast-[1.05] group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="object-cover object-center filter saturate-[0.93] contrast-[1.05] group-hover:scale-105 transition-transform duration-700 ease-out w-full h-full"
               />
             </motion.div>
 
