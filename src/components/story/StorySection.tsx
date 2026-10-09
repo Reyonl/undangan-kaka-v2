@@ -2,27 +2,52 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { MinangCorner } from "@/components/ui/MinangOrnaments";
+import { MinangCorner, BaliCorner, BaliGateSilhouette } from "@/components/ui/MinangOrnaments";
 
 export function StorySection() {
   const stories = weddingData.stories;
 
+  // Parallax for decorative ornaments
+  const { scrollYProgress } = useScroll();
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -15]);
+
   return (
     <section id="story" className="py-20 sm:py-28 bg-minang-maroon-dark bg-songket-dark relative text-minang-cream">
+      {/* Bali Gate Silhouette Background — subtle decorative element with parallax */}
+      <motion.div
+        className="absolute top-1/2 right-0 w-[280px] sm:w-[380px] -translate-y-1/2 text-bali-terracotta/[0.03] pointer-events-none z-0 opacity-40"
+        style={{ y: parallaxY }}
+      >
+        <BaliGateSilhouette strokeColor="currentColor" />
+      </motion.div>
+
+      {/* Minang Songket Pattern overlay with parallax (use transform instead of template string) */}
+      <motion.div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none z-0"
+        style={{ y: parallaxY }}
+      />
       <Container size="md">
         <SectionHeader
           subtitle="Kisah Kami"
           title="Perjalanan Menuju Hari Bahagia"
           description="Kisah dua jalan yang dipertemukan, belajar saling mengerti, dan melangkah bersama menuju mahligai rumah tangga."
+          culturalTheme="bali"
         />
 
         <div className="relative border-l-2 border-minang-gold/35 ml-5 sm:ml-28 md:ml-36 space-y-10 sm:space-y-14">
-          {stories.map((story, index) => (
+          {stories.map((story, index) => {
+            const isBaliSection = index === 2; // Third story (engagement) gets Bali treatment
+            const cardClass = isBaliSection
+              ? "glass-panel-bali border border-bali-terracotta/50 hover:border-bali-terracotta"
+              : "glass-panel-maroon border border-minang-gold/45 hover:border-minang-gold/70";
+            const accentColor = isBaliSection ? "#E07A5F" : "#E8CE75";
+
+            return (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: 25 }}
@@ -47,11 +72,13 @@ export function StorySection() {
                 </span>
               </div>
 
-              {/* Story Content Card */}
-              <div className="relative p-5 sm:p-7 rounded-3xl glass-panel-maroon border border-minang-gold/45 shadow-2xl hover:border-minang-gold/70 transition-all duration-500 overflow-hidden">
-                {/* Top glow accent */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-minang-gold/40 to-transparent" />
+              {/* Story Content Card — theme-aware: Minang gold or Bali terracotta */}
+              <div className={`relative p-5 sm:p-7 rounded-3xl ${cardClass} shadow-2xl transition-all duration-500 overflow-hidden`}>
+                {/* Top glow accent — theme-aware */}
+                <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-${isBaliSection ? "bali-terracotta" : "minang-gold"}/40 to-transparent`} />
+                {/* Cultural corners: Minang top-right, Bali bottom-left */}
                 <MinangCorner position="top-right" color="#E8CE75" className="absolute top-4 right-4" />
+                <BaliCorner position="bottom-left" color="#E07A5F" className={`absolute bottom-4 left-4 ${isBaliSection ? "opacity-90" : "opacity-70"}`} />
 
                 <div className="flex items-center gap-2 text-minang-gold-light mb-2">
                   <Sparkles className="w-3.5 h-3.5 text-minang-gold-light shrink-0" />
@@ -76,7 +103,8 @@ export function StorySection() {
                 )}
               </div>
             </motion.div>
-          ))}
+            ); // End of return for story item
+          })}
         </div>
       </Container>
     </section>

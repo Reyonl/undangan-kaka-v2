@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { SuntiangIcon, MinangCorner } from "@/components/ui/MinangOrnaments";
+import { MinangCorner, BaliCorner, SuntiangIcon, KambojaFlower } from "@/components/ui/MinangOrnaments";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -39,7 +39,6 @@ export function CoupleSection() {
           title="Anak Daro & Marapulai"
           description="Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridho-Nya, kami mengumumkan pernikahan kami:"
         />
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-stretch relative max-w-5xl mx-auto">
           {/* Connecting & Badge in Center (Desktop) */}
           <motion.div
@@ -81,11 +80,14 @@ export function CoupleSection() {
               />
             </motion.div>
 
-            {/* Cultural Badge */}
+            {/* Cultural Badge - Bride: Minang */}
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 text-minang-gold-light border border-minang-gold/40 text-xs font-semibold tracking-[0.22em] uppercase mb-2 shadow-sm">
               <SuntiangIcon className="w-4 h-3.5" />
               <span>{bride.titleTradisi || "Anak Daro"}</span>
             </div>
+
+            {/* Bali decorative accent at bottom of bride card */}
+            <BaliCorner position="bottom-right" color="#E07A5F" className="absolute bottom-3 right-3 opacity-60" />
 
             <h3 className="font-display text-3xl sm:text-4xl text-white font-light tracking-tight mb-3 leading-snug">
               {bride.fullName}
@@ -125,16 +127,16 @@ export function CoupleSection() {
             )}
           </motion.div>
 
-          {/* Groom Card */}
+          {/* Groom Card - with Bali cultural accents */}
           <motion.div
             initial={{ opacity: 0, x: 32 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex flex-col items-center text-center p-8 sm:p-10 rounded-3xl glass-panel-maroon border border-minang-gold/45 shadow-2xl hover:border-minang-gold/70 transition-all duration-500 group"
+            className="relative flex flex-col items-center text-center p-8 sm:p-10 rounded-3xl glass-panel-bali border border-bali-terracotta/50 shadow-2xl hover:border-bali-terracotta transition-all duration-500 group"
           >
-            <MinangCorner position="top-left" color="#E8CE75" className="absolute top-4 left-4" />
-            <MinangCorner position="top-right" color="#E8CE75" className="absolute top-4 right-4" />
+            <BaliCorner position="top-left" color="#E07A5F" className="absolute top-4 left-4" />
+            <BaliCorner position="top-right" color="#E07A5F" className="absolute top-4 right-4" />
 
             {/* Photo with Arch Frame */}
             <motion.div
@@ -142,7 +144,7 @@ export function CoupleSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-48 h-64 sm:w-56 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-xl border-2 border-minang-gold/50 bg-minang-maroon-deep"
+              className="relative w-48 h-64 sm:w-56 sm:h-72 rounded-t-full rounded-b-2xl overflow-hidden mb-6 shadow-xl border-2 border-bali-terracotta/50 bg-minang-maroon-deep"
             >
               <Image
                 src={groom.photo}
@@ -152,10 +154,14 @@ export function CoupleSection() {
               />
             </motion.div>
 
-            {/* Cultural Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 text-minang-gold-light border border-minang-gold/40 text-xs font-semibold tracking-[0.22em] uppercase mb-2 shadow-sm">
+            {/* Cultural Badge - Groom: Bali */}
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 text-bali-terracotta-light border border-bali-terracotta/50 text-xs font-semibold tracking-[0.22em] uppercase mb-2 shadow-sm">
+              <KambojaFlower className="w-3.5 h-3.5" />
               <span>{groom.titleTradisi || "Marapulai"}</span>
             </div>
+
+            {/* Minang decorative accent at bottom of groom card */}
+            <MinangCorner position="bottom-left" color="#E8CE75" className="absolute bottom-3 left-3 opacity-60" />
 
             <h3 className="font-display text-3xl sm:text-4xl text-white font-light tracking-tight mb-3 leading-snug">
               {groom.fullName}
@@ -172,12 +178,12 @@ export function CoupleSection() {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="origin-center w-24 h-px bg-gradient-to-r from-transparent via-minang-gold/50 to-transparent mb-4"
+              className="origin-center w-24 h-px bg-gradient-to-r from-transparent via-bali-terracotta/50 to-transparent mb-4"
             />
 
+            {/* Groom family info */}
             <p className="text-xs sm:text-sm text-minang-cream/85 leading-loose mb-4 font-light">
               Putra tercinta dari
-              <br />
               <strong className="text-white font-semibold">{groom.father}</strong>
               <br />&amp; <strong className="text-white font-semibold">{groom.mother}</strong>
             </p>
@@ -187,7 +193,7 @@ export function CoupleSection() {
                 href={`https://instagram.com/${groom.instagram.replace("@", "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-minang-gold-light/80 hover:text-white hover:-translate-y-0.5 font-medium transition-all duration-200 border border-minang-gold/30 rounded-full px-3 py-1 hover:bg-minang-gold/10"
+                className="inline-flex items-center gap-1.5 text-xs text-bali-terracotta-light/80 hover:text-white hover:-translate-y-0.5 font-medium transition-all duration-200 border border-bali-terracotta/30 rounded-full px-3 py-1 hover:bg-bali-terracotta/10"
               >
                 <InstagramIcon className="w-3.5 h-3.5" />
                 <span>{groom.instagram}</span>

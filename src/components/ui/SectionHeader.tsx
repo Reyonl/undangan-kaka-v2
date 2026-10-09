@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { PucuakRebuangDivider } from "@/components/ui/MinangOrnaments";
+import { PucuakRebuangDivider, BaliFlowerDivider } from "@/components/ui/MinangOrnaments";
 import { TypewriterEffect } from "./TypewriterEffect";
 
 interface SectionHeaderProps {
@@ -12,6 +12,8 @@ interface SectionHeaderProps {
   description?: string;
   align?: "center" | "left" | "right";
   className?: string;
+  /** Cultural theme for the divider: Minang (gold) or Bali (terracotta) */
+  culturalTheme?: "minang" | "bali";
 }
 
 const containerVariants = {
@@ -43,6 +45,7 @@ export function SectionHeader({
   description,
   align = "center",
   className,
+  culturalTheme = "minang",
 }: SectionHeaderProps) {
   const alignment = {
     center: "text-center items-center",
@@ -61,11 +64,26 @@ export function SectionHeader({
       {subtitle && (
         <motion.span
           variants={itemVariants}
-          className="inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-semibold tracking-[0.35em] uppercase mb-3 text-minang-gold-light"
+          className={cn(
+            "inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-semibold tracking-[0.35em] uppercase mb-3",
+            culturalTheme === "bali"
+              ? "text-bali-terracotta-light"
+              : "text-minang-gold-light"
+          )}
         >
-          <span className="w-5 h-px bg-minang-gold/50" />
+          <span className={cn(
+            "w-5 h-px",
+            culturalTheme === "bali"
+              ? "bg-bali-terracotta/60"
+              : "bg-minang-gold/50"
+          )} />
           {subtitle}
-          <span className="w-5 h-px bg-minang-gold/50" />
+          <span className={cn(
+            "w-5 h-px",
+            culturalTheme === "bali"
+              ? "bg-bali-terracotta/60"
+              : "bg-minang-gold/50"
+          )} />
         </motion.span>
       )}
 
@@ -76,8 +94,13 @@ export function SectionHeader({
         <TypewriterEffect text={title} speed={40} delay={200} />
       </motion.h2>
 
-      <motion.div variants={dividerVariants} className="origin-center my-4">
-        <PucuakRebuangDivider dark={true} />
+      {/* Cultural divider: Minang songket or Bali kamboja */}
+      <motion.div variants={dividerVariants} className="origin-center my-4 flex items-center justify-center">
+        {culturalTheme === "bali" ? (
+          <BaliFlowerDivider dark={true} />
+        ) : (
+          <PucuakRebuangDivider dark={true} />
+        )}
       </motion.div>
 
       {description && (

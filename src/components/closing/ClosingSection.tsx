@@ -2,30 +2,43 @@
 
 import React from "react";
 import { ArrowUp } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
-import { RumahGadangSilhouette, SuntiangIcon } from "@/components/ui/MinangOrnaments";
+import { RumahGadangSilhouette, BaliGateSilhouette, SuntiangIcon, KambojaFlower } from "@/components/ui/MinangOrnaments";
 
 export function ClosingSection() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Parallax for decorative ornaments (subtle, disabled on mobile for performance)
+  const { scrollYProgress } = useScroll();
+  const parallaxYMinang = useTransform(scrollYProgress, [0, 1], [0, -20]);
+  const parallaxYBali = useTransform(scrollYProgress, [0, 1], [0, -15]);
+
   return (
     <footer className="py-20 sm:py-28 bg-minang-maroon-deep text-minang-cream relative overflow-hidden text-center">
-      {/* Subtle radial glow */}
+      {/* Subtle radial glow — Minang gold */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-minang-gold/10 rounded-full blur-3xl pointer-events-none" />
 
+      {/* Bali Gate Silhouette Background — subtle decorative element with parallax */}
+      <motion.div
+        className="absolute bottom-0 right-0 w-[260px] sm:w-[340px] text-bali-terracotta/[0.04] pointer-events-none opacity-35"
+        style={{ y: parallaxYBali }}
+      >
+        <BaliGateSilhouette strokeColor="currentColor" />
+      </motion.div>
+
       <Container size="md" className="relative z-10 flex flex-col items-center">
-        {/* Siluet Atap Rumah Gadang */}
+        {/* Siluet Atap Rumah Gadang (Minang) with parallax */}
         <motion.div
           initial={{ opacity: 0, y: 25, scale: 0.95 }}
           whileInView={{ opacity: 0.85, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
           className="w-52 sm:w-64 mb-8 text-minang-gold-light float-gentle"
-          style={{ animationDelay: "0.5s" }}
+          style={{ animationDelay: "0.5s", y: parallaxYMinang }}
         >
           <RumahGadangSilhouette strokeColor="#E8CE75" />
         </motion.div>
@@ -96,11 +109,12 @@ export function ClosingSection() {
           <span>Kembali ke Atas</span>
         </motion.button>
 
-        {/* Footer Credit */}
+        {/* Footer Credit — with kamboja flower */}
         <div className="flex items-center justify-center gap-1.5 text-xs text-minang-cream/50 font-light">
           <span>Dibuat dengan segenap kasih untuk</span>
           <SuntiangIcon className="w-3.5 h-3.5 inline text-minang-gold" />
           <span>{weddingData.couple.bride.nickname} &amp; {weddingData.couple.groom.nickname}</span>
+          <KambojaFlower className="w-4 h-4" />
         </div>
       </Container>
     </footer>

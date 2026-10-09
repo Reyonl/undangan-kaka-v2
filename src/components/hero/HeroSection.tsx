@@ -2,11 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
-import { RumahGadangSilhouette, SuntiangIcon } from "@/components/ui/MinangOrnaments";
+import { RumahGadangSilhouette, BaliGateSilhouette, SuntiangIcon } from "@/components/ui/MinangOrnaments";
 
 const heroVariants = {
   hidden: {},
@@ -38,12 +38,34 @@ export function HeroSection() {
     document.getElementById("couple")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Subtle parallax for decorative ornaments (disabled on mobile for performance)
+  const { scrollYProgress } = useScroll();
+  const parallaxYRumahGadang = useTransform(scrollYProgress, [0, 1], [0, -15]);
+  const parallaxYBaliGate = useTransform(scrollYProgress, [0, 1], [0, -10]);
+
   return (
     <section className="relative min-h-[92vh] md:min-h-screen flex items-center justify-center pt-16 pb-24 overflow-hidden bg-songket-dark text-minang-cream">
-      {/* Background RumahGadang silhouette */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] sm:w-[580px] text-minang-gold/[0.07] pointer-events-none z-0">
+      {/* Background RumahGadang silhouette — Minang (left, subtle) with parallax */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 0.07, x: 0 }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] sm:w-[580px] text-minang-gold pointer-events-none z-0"
+        style={{ y: parallaxYRumahGadang }}
+      >
         <RumahGadangSilhouette strokeColor="currentColor" />
-      </div>
+      </motion.div>
+
+      {/* Background Bali Gate silhouette — Bali (right, subtle) with parallax */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 0.05, x: 0 }}
+        transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-1/2 right-0 w-[300px] sm:w-[420px] text-bali-terracotta pointer-events-none z-0 opacity-60"
+        style={{ y: parallaxYBaliGate }}
+      >
+        <BaliGateSilhouette strokeColor="currentColor" />
+      </motion.div>
       {/* Ambient glow orbs */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[520px] h-[320px] bg-minang-maroon-light/12 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-minang-gold/[0.04] rounded-full blur-3xl pointer-events-none float-gentle" style={{ animationDelay: "2s" }} />
@@ -56,13 +78,17 @@ export function HeroSection() {
           viewport={{ once: true }}
           className="flex flex-col items-center"
         >
-          {/* Cultural Top Tagline */}
+          {/* Cultural fusion tagline — Minang & Bali */}
           <motion.div
             variants={heroItem}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-minang-gold/50 bg-black/40 text-minang-gold-light text-xs font-semibold tracking-[0.28em] uppercase mb-8 shadow-md backdrop-blur-md"
+            className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-minang-gold/50 bg-black/40 text-minang-gold-light text-xs font-semibold tracking-[0.28em] uppercase mb-8 shadow-md backdrop-blur-md"
           >
             <SuntiangIcon className="w-4 h-4 text-minang-gold-light" />
-            <span>Baralek Gadang Adat Minangkabau</span>
+            <span className="hidden sm:inline">Minangkabau</span>
+            <span className="text-bali-terracotta-light">•</span>
+            <span className="hidden sm:inline">Bali</span>
+            <span className="sm:hidden">Minang × Bali</span>
+            <SuntiangIcon className="w-4 h-4 text-bali-terracotta-light" />
           </motion.div>
 
           {/* Editorial Photo Frame */}

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Home, Heart, Calendar, BookOpen, Image as ImageIcon, MessageSquare, Gift } from "lucide-react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -68,10 +69,13 @@ export function FloatingNav({ isVisible }: { isVisible: boolean }) {
         {NAV_ITEMS.map((item) => {
           const isActive = activeSection === item.id;
           return (
-            <button
+            <motion.button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               aria-label={item.label}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
                 "relative flex items-center justify-center min-w-[40px] min-h-[40px] sm:min-w-0 sm:min-h-0 p-2 sm:px-3 sm:py-1.5 rounded-full text-xs font-medium transition-all duration-300 cursor-pointer",
                 isActive
@@ -79,16 +83,31 @@ export function FloatingNav({ isVisible }: { isVisible: boolean }) {
                   : "text-minang-cream/80 hover:text-minang-gold-light hover:bg-black/30"
               )}
             >
-              <span className="shrink-0">{item.icon}</span>
-              <span
+              <span className={cn(
+                "shrink-0 transition-transform duration-300",
+                isActive ? "scale-110" : ""
+              )}>{item.icon}</span>
+              <motion.span
                 className={cn(
                   "hidden md:inline-block ml-1.5 text-[11px] uppercase tracking-wider",
                   isActive ? "font-semibold" : "font-normal"
                 )}
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: isActive ? 1 : 0.7, x: 0 }}
+                transition={{ duration: 0.2 }}
               >
                 {item.label}
-              </span>
-            </button>
+              </motion.span>
+
+              {/* Hover glow ring for inactive items */}
+              {!isActive && (
+                <motion.span
+                  className="absolute inset-0 rounded-full border border-minang-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                />
+              )}
+            </motion.button>
           );
         })}
       </div>

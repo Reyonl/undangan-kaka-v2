@@ -31,10 +31,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: `${weddingData.title} | ${weddingData.subTitleTradisi}`,
-  description: `Kami bermaksud mengundang Anda untuk merayakan momen istimewa Baralek Gadang (Pernikahan Adat Minangkabau) ${weddingData.couple.bride.nickname} & ${weddingData.couple.groom.nickname}.`,
+  description: `Kami bermaksud mengundang Anda untuk merayakan momen istimewa pernikahan adat Minangkabau & Bali: ${weddingData.couple.bride.nickname} & ${weddingData.couple.groom.nickname}.`,
   openGraph: {
     title: `${weddingData.title} — ${weddingData.subTitleTradisi}`,
-    description: `Undangan Resmi Baralek Gadang - ${weddingData.couple.bride.nickname} & ${weddingData.couple.groom.nickname}`,
+    description: `Undangan Resmi Baralek Gadang - Diah & Made (Minangkabau × Bali)`,
     images: [
       {
         url:
@@ -63,7 +63,7 @@ export default function RootLayout({
       lang="id"
       className={`${playfair.variable} ${cormorant.variable} ${plusJakarta.variable} scroll-smooth`}
     >
-      <body className="font-sans bg-minang-cream text-minang-charcoal min-h-screen selection:bg-minang-maroon selection:text-white antialiased">
+      <body className="font-sans bg-minang-maroon-deep text-minang-cream min-h-screen selection:bg-minang-gold selection:text-minang-charcoal antialiased">
         {children}
       </body>
     </html>

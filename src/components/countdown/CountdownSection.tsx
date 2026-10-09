@@ -7,7 +7,7 @@ import { weddingData } from "@/config/weddingData";
 import { useCountdown } from "@/hooks/useCountdown";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { RumahGadangSilhouette, MinangCorner } from "@/components/ui/MinangOrnaments";
+import { RumahGadangSilhouette, BaliGateSilhouette, MinangCorner, BaliCorner } from "@/components/ui/MinangOrnaments";
 
 interface TimeUnitProps {
   value: number;
@@ -49,9 +49,12 @@ export function CountdownSection() {
 
   return (
     <section className="py-20 sm:py-28 bg-minang-maroon-deep bg-songket-dark text-minang-cream relative overflow-hidden">
-      {/* Background Siluet Rumah Gadang */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] text-minang-gold/[0.07] pointer-events-none">
+      {/* Background Siluet Rumah Gadang & Bali Gate */}
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] text-minang-gold/[0.07] pointer-events-none">
         <RumahGadangSilhouette strokeColor="currentColor" />
+      </div>
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] text-bali-terracotta/[0.05] pointer-events-none opacity-60">
+        <BaliGateSilhouette strokeColor="currentColor" />
       </div>
 
       <Container size="md" className="relative z-10 text-center">
@@ -81,9 +84,9 @@ export function CountdownSection() {
             className="relative max-w-xl mx-auto p-4 sm:p-6 glass-panel-maroon rounded-3xl border border-minang-gold/45 shadow-2xl"
           >
             <MinangCorner position="top-left" color="#E8CE75" className="absolute top-3 left-3" />
-            <MinangCorner position="top-right" color="#E8CE75" className="absolute top-3 right-3" />
+            <BaliCorner position="top-right" color="#E07A5F" className="absolute top-3 right-3" />
             <MinangCorner position="bottom-left" color="#E8CE75" className="absolute bottom-3 left-3" />
-            <MinangCorner position="bottom-right" color="#E8CE75" className="absolute bottom-3 right-3" />
+            <BaliCorner position="bottom-right" color="#E07A5F" className="absolute bottom-3 right-3" />
 
             {/* Target Date Headline */}
             <p className="font-serif text-lg sm:text-xl text-minang-gold-light mb-6 tracking-wider uppercase font-medium">

@@ -2,16 +2,21 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
+import { MinangCorner, BaliCorner } from "@/components/ui/MinangOrnaments";
 
 export function GallerySection() {
   const gallery = weddingData.gallery;
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
+
+  // Parallax for decorative ornaments
+  const { scrollYProgress } = useScroll();
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -20]);
 
   const openLightbox = (index: number) => {
     setActivePhotoIndex(index);
@@ -44,10 +49,25 @@ export function GallerySection() {
           subtitle="Galeri Kenangan"
           title="Potret Momen Bahagia"
           description="Rangkaian potret kebersamaan yang merekam perjalanan cinta dan kehangatan kami berdua."
+          culturalTheme="bali"
         />
 
-        {/* Editorial Masonry Grid with Staggered Cascade Entrance */}
+        {/* Editorial Masonry Grid with Staggered Cascade Entrance — Minang × Bali theme */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {/* Floating Minang ornament behind gallery with parallax */}
+          <motion.div
+            className="absolute -top-10 -left-10 w-32 h-32 text-minang-gold/[0.03] pointer-events-none z-0 hidden lg:block"
+            style={{ y: parallaxY }}
+          >
+            <MinangCorner position="top-right" color="#E8CE75" />
+          </motion.div>
+          {/* Floating Bali ornament behind gallery with parallax */}
+          <motion.div
+            className="absolute -bottom-10 -right-10 w-32 h-32 text-bali-terracotta/[0.03] pointer-events-none z-0 hidden lg:block"
+            style={{ y: parallaxY }}
+          >
+            <BaliCorner position="bottom-left" color="#E07A5F" />
+          </motion.div>
           {gallery.map((photo, index) => {
             const isTall = photo.span === "tall";
             const isWide = photo.span === "wide";
@@ -73,13 +93,13 @@ export function GallerySection() {
                   className="object-cover object-center filter saturate-[0.95] group-hover:scale-105 group-hover:filter-none transition-all duration-700 ease-out"
                 />
 
-                {/* Hover Overlay with Maroon & Gold Vignette */}
+                {/* Hover Overlay with fusion Maroon & Terracotta Vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-minang-maroon-deep/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
                   <div className="flex items-center justify-between">
-                    <p className="font-serif italic text-sm text-minang-gold-light">
+                    <p className="font-serif italic text-sm text-fusion-gradient">
                       {photo.caption || `${weddingData.couple.bride.nickname} & ${weddingData.couple.groom.nickname}`}
                     </p>
-                    <div className="w-8 h-8 rounded-full bg-black/40 border border-minang-gold/50 backdrop-blur-xs flex items-center justify-center text-minang-gold-light">
+                    <div className="w-8 h-8 rounded-full bg-black/40 border border-bali-terracotta/50 backdrop-blur-xs flex items-center justify-center text-bali-terracotta-light">
                       <Maximize2 className="w-4 h-4" />
                     </div>
                   </div>

@@ -77,7 +77,7 @@ export interface WeddingData {
 
 export const weddingData: WeddingData = {
   title: "The Wedding of Diah & Made",
-  subTitleTradisi: "Baralek Gadang — Pernikahan Adat Minangkabau",
+  subTitleTradisi: "Baralek Gadang — Pernikahan Adat Minangkabau & Bali",
   couple: {
     groom: {
       fullName: "I Made Aryana Putra.",

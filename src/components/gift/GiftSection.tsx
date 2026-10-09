@@ -1,17 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Copy, Check, CreditCard } from "lucide-react";
 import { weddingData } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import { MinangCorner } from "@/components/ui/MinangOrnaments";
+import { MinangCorner, BaliCorner } from "@/components/ui/MinangOrnaments";
 
 export function GiftSection() {
   const gifts = weddingData.gifts;
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  // Parallax for decorative ornaments
+  const { scrollYProgress } = useScroll();
+  const parallaxYMinang = useTransform(scrollYProgress, [0, 1], [0, -10]);
+  const parallaxYBali = useTransform(scrollYProgress, [0, 1], [0, -8]);
 
   const copyToClipboard = (accountNumber: string, index: number) => {
     navigator.clipboard.writeText(accountNumber);
@@ -42,8 +47,12 @@ export function GiftSection() {
               transition={{ duration: 0.8, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="relative p-6 sm:p-8 rounded-3xl glass-panel-maroon border border-minang-gold/45 shadow-2xl flex flex-col justify-between hover:border-minang-gold transition-all duration-300 group"
             >
-              <MinangCorner position="top-left" color="#E8CE75" className="absolute top-3 left-3" />
-              <MinangCorner position="top-right" color="#E8CE75" className="absolute top-3 right-3" />
+              <motion.div style={{ y: parallaxYMinang }} className="absolute top-3 left-3">
+                <MinangCorner position="top-left" color="#E8CE75" />
+              </motion.div>
+              <motion.div style={{ y: parallaxYMinang }} className="absolute top-3 right-3">
+                <MinangCorner position="top-right" color="#E8CE75" />
+              </motion.div>
 
               <div>
                 <div className="flex items-center justify-between mb-4">

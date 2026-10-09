@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MailOpen, Sparkles } from "lucide-react";
 import { weddingData } from "@/config/weddingData";
 import { Button } from "@/components/ui/Button";
-import { RumahGadangSilhouette, MinangCorner, SuntiangIcon } from "@/components/ui/MinangOrnaments";
+import { RumahGadangSilhouette, BaliGateSilhouette, MinangCorner, BaliCorner, SuntiangIcon } from "@/components/ui/MinangOrnaments";
 import { TypewriterEffect } from "@/components/ui/TypewriterEffect";
 
 interface OpeningScreenProps {
@@ -47,9 +47,9 @@ export function OpeningScreen({ isOpen, guestName, onOpen }: OpeningScreenProps)
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(107,23,29,0.4)_0%,transparent_70%)]" />
           </div>
 
-          {/* Ambient floating gold orbs */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-minang-gold/5 rounded-full blur-3xl pointer-events-none float-gentle" style={{ animationDelay: "0s" }} />
-          <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-minang-maroon-light/10 rounded-full blur-3xl pointer-events-none float-gentle" style={{ animationDelay: "3.5s" }} />
+          {/* Ambient floating gold orbs */}\
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-minang-gold/5 rounded-full blur-3xl pointer-events-none float-gentle" style={{ animationDelay: "0s" }} />\
+          <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-bali-terracotta/10 rounded-full blur-3xl pointer-events-none float-gentle" style={{ animationDelay: "3.5s" }} />
 
           {/* Decorative Traditional Border Frame */}
           <div className="absolute inset-3 sm:inset-6 border border-minang-gold/30 pointer-events-none z-10 flex flex-col justify-between p-3 sm:p-5">
@@ -63,12 +63,12 @@ export function OpeningScreen({ isOpen, guestName, onOpen }: OpeningScreenProps)
                 className="flex items-center gap-1.5 text-minang-gold-light text-[10px] sm:text-xs tracking-[0.3em] uppercase pt-1 font-medium"
               >
                 <SuntiangIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">Baralek Gadang Minangkabau</span>
+                <span className="hidden sm:inline">Baralek Gadang — Minangkabau &amp; Bali</span>
               </motion.div>
               <MinangCorner position="top-right" color="#E8CE75" />
             </div>
 
-            {/* Bottom Corners */}
+            {/* Bottom Corners: Minang left, Bali right */}
             <div className="flex justify-between items-end">
               <MinangCorner position="bottom-left" color="#E8CE75" />
               <motion.div
@@ -81,7 +81,7 @@ export function OpeningScreen({ isOpen, guestName, onOpen }: OpeningScreenProps)
                 <span>&bull;</span>
                 <span>{weddingData.couple.hashtag}</span>
               </motion.div>
-              <MinangCorner position="bottom-right" color="#E8CE75" />
+              <BaliCorner position="bottom-right" color="#E07A5F" />
             </div>
           </div>
 
@@ -93,7 +93,7 @@ export function OpeningScreen({ isOpen, guestName, onOpen }: OpeningScreenProps)
             className="relative z-20 max-w-lg w-full mx-4 text-center text-minang-cream flex flex-col items-center py-8 sm:py-10 px-6 sm:px-10 rounded-3xl glass-panel-maroon shadow-2xl border border-minang-gold/50"
             style={{ boxShadow: "0 0 0 1px rgba(212,175,55,0.15), 0 0 60px -10px rgba(212,175,55,0.15), 0 25px 60px -20px rgba(0,0,0,0.7)" }}
           >
-            {/* Rumah Gadang Silhouette */}
+            {/* Rumah Gadang Silhouette (Minang) */}
             <motion.div
               initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 0.9, y: 0 }}
@@ -102,6 +102,17 @@ export function OpeningScreen({ isOpen, guestName, onOpen }: OpeningScreenProps)
               style={{ animationDelay: "1s" }}
             >
               <RumahGadangSilhouette strokeColor="#E8CE75" />
+            </motion.div>
+
+            {/* Bali Gate Silhouette accent */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 0.7, y: 0 }}
+              transition={{ duration: 1.3, delay: 0.3, ease: "easeOut" }}
+              className="w-32 sm:w-44 mb-2 text-bali-terracotta-light float-gentle"
+              style={{ animationDelay: "1.2s" }}
+            >
+              <BaliGateSilhouette strokeColor="#E07A5F" />
             </motion.div>
 
             {/* Subtitle Badge */}

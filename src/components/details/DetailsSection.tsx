@@ -1,18 +1,18 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Calendar, Clock, MapPin, ExternalLink, CalendarPlus } from "lucide-react";
 import { weddingData, WeddingEvent } from "@/config/weddingData";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import { MinangCorner } from "@/components/ui/MinangOrnaments";
+import { MinangCorner, BaliCorner } from "@/components/ui/MinangOrnaments";
 
 function generateGoogleCalendarUrl(event: WeddingEvent) {
   const title = encodeURIComponent(`${event.title} - Diah & Made`);
   const details = encodeURIComponent(
-    `Baralek Gadang (Pernikahan Adat Minangkabau) Diah Insani & I Made Made Putra di ${event.venue}.\nAlamat: ${event.address}`
+    `Baralek Gadang (Pernikahan Adat Minangkabau × Bali) Diah Insani & I Made Aryana Putra di ${event.venue}.\nAlamat: ${event.address}`
   );
   const location = encodeURIComponent(`${event.venue}, ${event.address}`);
   const start = "20261128T010000Z";
@@ -23,6 +23,11 @@ function generateGoogleCalendarUrl(event: WeddingEvent) {
 
 export function DetailsSection() {
   const { ceremony, reception } = weddingData.events;
+
+  // Parallax for decorative ornaments
+  const { scrollYProgress } = useScroll();
+  const parallaxYMinang = useTransform(scrollYProgress, [0, 1], [0, -15]);
+  const parallaxYBali = useTransform(scrollYProgress, [0, 1], [0, -10]);
 
   return (
     <section id="details" className="py-20 sm:py-28 bg-songket-dark relative text-minang-cream">
@@ -41,16 +46,32 @@ export function DetailsSection() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative max-w-2xl mx-auto p-8 sm:p-10 rounded-3xl glass-panel-maroon border border-minang-gold/45 shadow-2xl hover:border-minang-gold transition-all duration-300"
         >
-          <MinangCorner position="top-left" color="#E8CE75" className="absolute top-4 left-4" />
-          <MinangCorner position="top-right" color="#E8CE75" className="absolute top-4 right-4" />
+          <motion.div style={{ y: parallaxYMinang }} className="absolute top-4 left-4">
+            <MinangCorner position="top-left" color="#E8CE75" />
+          </motion.div>
+          <motion.div style={{ y: parallaxYMinang }} className="absolute top-4 right-4">
+            <MinangCorner position="top-right" color="#E8CE75" />
+          </motion.div>
+          <motion.div style={{ y: parallaxYBali }} className="absolute bottom-4 left-4 opacity-80">
+            <BaliCorner position="bottom-left" color="#E07A5F" />
+          </motion.div>
+          <motion.div style={{ y: parallaxYBali }} className="absolute bottom-4 right-4 opacity-80">
+            <BaliCorner position="bottom-right" color="#E07A5F" />
+          </motion.div>
 
-          {/* ── AKAD NIKAH ── */}
-          <div className="flex items-center justify-between mb-5">
-            <span className="px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-black/40 text-minang-gold-light border border-minang-gold/40">
-              Akad Nikah
+          {/* ── AKAD NIKAH (Minangkabau) ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center justify-between mb-5"
+          >
+            <span className="px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-minang-maroon-dark/50 text-minang-gold-light border border-minang-gold/40">
+              Akad Nikah <span className="text-xs opacity-60">• Minangkabau</span>
             </span>
             <span className="text-minang-gold-light text-xs font-mono font-semibold">01</span>
-          </div>
+          </motion.div>
 
           <h3 className="font-serif text-2xl sm:text-3xl text-white font-medium mb-1">
             {ceremony.title}
@@ -94,13 +115,19 @@ export function DetailsSection() {
             </div>
           </div>
 
-          {/* ── BARALEK GADANG ── */}
-          <div className="flex items-center justify-between mb-5">
-            <span className="px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-minang-gold/25 text-minang-gold-light border border-minang-gold/50">
-              Baralek Gadang
+          {/* ── BARALEK GADANG (Bali) ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center justify-between mb-5"
+          >
+            <span className="px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-bali-terracotta/25 text-bali-terracotta-light border border-bali-terracotta/60">
+              Baralek Gadang <span className="text-xs opacity-75">• Bali</span>
             </span>
-            <span className="text-minang-gold-light text-xs font-mono font-semibold">02</span>
-          </div>
+            <span className="text-bali-terracotta-light text-xs font-mono font-semibold">02</span>
+          </motion.div>
 
           <h3 className="font-serif text-2xl sm:text-3xl text-white font-medium mb-1">
             {reception.title}
@@ -114,36 +141,36 @@ export function DetailsSection() {
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             {/* Date */}
             <div className="flex items-start gap-3 flex-1">
-              <div className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center shrink-0 text-minang-gold-light border border-minang-gold/40">
+              <div className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center shrink-0 text-bali-terracotta-light border border-bali-terracotta/50">
                 <Calendar className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-minang-gold-light/80 font-medium">Hari & Tanggal</p>
+                <p className="text-xs uppercase tracking-wider text-bali-terracotta-light/80 font-medium">Hari & Tanggal</p>
                 <p className="text-sm font-semibold text-white">{reception.date}</p>
               </div>
             </div>
             {/* Time */}
             <div className="flex items-start gap-3 flex-1">
-              <div className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center shrink-0 text-minang-gold-light border border-minang-gold/40">
+              <div className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center shrink-0 text-bali-terracotta-light border border-bali-terracotta/50">
                 <Clock className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-minang-gold-light/80 font-medium">Waktu</p>
+                <p className="text-xs uppercase tracking-wider text-bali-terracotta-light/80 font-medium">Waktu</p>
                 <p className="text-sm font-semibold text-white">{reception.time}</p>
               </div>
             </div>
           </div>
 
           {/* ── Shared Venue ── */}
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-black/30 border border-minang-gold/20 mb-8">
-            <div className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center shrink-0 text-minang-gold-light border border-minang-gold/40">
+          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-bali-terracotta/10 border border-bali-terracotta/20 mb-8">
+            <div className="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center shrink-0 text-bali-terracotta-light border border-bali-terracotta/40">
               <MapPin className="w-4 h-4" />
             </div>
             <div>
               <p className="text-xs uppercase tracking-wider text-minang-gold-light/80 font-medium mb-0.5">
                 Tempat & Alamat
               </p>
-              <p className="text-sm sm:text-base font-semibold text-minang-gold-light">
+              <p className="text-sm sm:text-base font-semibold text-bali-terracotta-light">
                 {ceremony.venue}
               </p>
               <p className="text-xs sm:text-sm text-minang-cream/80 mt-1 leading-relaxed font-light">
@@ -170,7 +197,7 @@ export function DetailsSection() {
               </Button>
             </a>
             <a
-              href={generateGoogleCalendarUrl(ceremony)}
+              href={ceremony.calendarLink || generateGoogleCalendarUrl(ceremony)}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1"
@@ -185,6 +212,20 @@ export function DetailsSection() {
               </Button>
             </a>
           </div>
+
+          {/* Reception Calendar Link */}          {reception.calendarLink && (
+            <div className="mt-3 pt-3 border-t border-minang-gold/20">
+              <a
+                href={reception.calendarLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 text-xs text-minang-cream/70 hover:text-minang-gold-light transition-colors"
+              >
+                <CalendarPlus className="w-3.5 h-3.5" />
+                <span>Simpan ke Kalender — Baralek Gadang</span>
+              </a>
+            </div>
+          )}
         </motion.div>
       </Container>
     </section>

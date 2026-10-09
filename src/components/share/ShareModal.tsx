@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Share2, X, Copy, Check, Send } from "lucide-react";
 import { weddingData } from "@/config/weddingData";
 import { Button } from "@/components/ui/Button";
-import { SuntiangIcon } from "@/components/ui/MinangOrnaments";
+import { SuntiangIcon, KambojaFlower } from "@/components/ui/MinangOrnaments";
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -111,12 +111,15 @@ Salam hangat,
           <X className="w-5 h-5" />
         </button>
 
-        {/* Modal Header */}
-        <div className="flex items-center gap-2 text-minang-gold-light mb-1">
-          <SuntiangIcon className="w-5 h-4" />
-          <span className="text-xs uppercase tracking-widest font-semibold">
-            Invitation Link Generator
-          </span>
+        {/* Modal Header — Minang × Bali fusion */}
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2 text-minang-gold-light">
+            <SuntiangIcon className="w-5 h-4" />
+            <span className="text-xs uppercase tracking-widest font-semibold">
+              Invitation Link Generator
+            </span>
+          </div>
+          <KambojaFlower className="w-5 h-5 text-bali-terracotta-light/50" />
         </div>
         <h3 className="font-serif text-2xl sm:text-3xl text-white font-medium mb-2">
           Buat Undangan Tamu

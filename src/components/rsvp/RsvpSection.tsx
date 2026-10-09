@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Send, CheckCircle2, MessageSquareHeart, Users, Check, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import { MinangCorner } from "@/components/ui/MinangOrnaments";
+import { MinangCorner, BaliCorner } from "@/components/ui/MinangOrnaments";
 
 interface WishItem {
   id: string;
@@ -56,6 +56,11 @@ export function RsvpSection({ defaultGuestName }: RsvpSectionProps) {
   const [wishes, setWishes] = useState<WishItem[]>(INITIAL_WISHES);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Parallax for decorative ornaments
+  const { scrollYProgress } = useScroll();
+  const parallaxYMinang = useTransform(scrollYProgress, [0, 1], [0, -12]);
+  const parallaxYBali = useTransform(scrollYProgress, [0, 1], [0, -8]);
 
   useEffect(() => {
     if (defaultGuestName && defaultGuestName !== "Tamu Undangan") {
@@ -120,8 +125,12 @@ export function RsvpSection({ defaultGuestName }: RsvpSectionProps) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="relative lg:col-span-6 p-8 sm:p-10 rounded-3xl glass-panel-maroon border border-minang-gold/45 shadow-2xl"
           >
-            <MinangCorner position="top-left" color="#E8CE75" className="absolute top-4 left-4" />
-            <MinangCorner position="top-right" color="#E8CE75" className="absolute top-4 right-4" />
+            <motion.div style={{ y: parallaxYMinang }}>
+              <MinangCorner position="top-left" color="#E8CE75" className="absolute top-4 left-4" />
+            </motion.div>
+            <motion.div style={{ y: parallaxYMinang }}>
+              <MinangCorner position="top-right" color="#E8CE75" className="absolute top-4 right-4" />
+            </motion.div>
 
             <h3 className="font-serif text-2xl text-white font-medium mb-2">
               Konfirmasi Kehadiran
@@ -247,20 +256,26 @@ export function RsvpSection({ defaultGuestName }: RsvpSectionProps) {
             )}
           </motion.div>
 
-          {/* Wishes List Board Column (Maroon Glass with Motion) */}
+          {/* Wishes List Board Column (Bali fusion Glass with Motion) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 flex flex-col h-full p-8 sm:p-10 rounded-3xl glass-panel-maroon border border-minang-gold/45 shadow-2xl"
+            className="relative lg:col-span-6 flex flex-col h-full p-8 sm:p-10 rounded-3xl glass-panel-bali border border-bali-terracotta/50 shadow-2xl"
           >
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-minang-gold/30">
-              <div className="flex items-center gap-2 text-minang-gold-light">
-                <MessageSquareHeart className="w-5 h-5 text-minang-gold-light" />
+            <motion.div style={{ y: parallaxYBali }} className="absolute top-4 left-4">
+              <BaliCorner position="top-left" color="#E07A5F" />
+            </motion.div>
+            <motion.div style={{ y: parallaxYBali }} className="absolute top-4 right-4">
+              <BaliCorner position="top-right" color="#E07A5F" />
+            </motion.div>
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-bali-terracotta/30">
+              <div className="flex items-center gap-2 text-bali-terracotta-light">
+                <MessageSquareHeart className="w-5 h-5 text-bali-terracotta-light" />
                 <h3 className="font-serif text-2xl font-medium text-white">Doa Restu</h3>
               </div>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-black/40 text-minang-gold-light border border-minang-gold/40">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-black/40 text-bali-terracotta-light border border-bali-terracotta/40">
                 {wishes.length} Pesan
               </span>
             </div>
